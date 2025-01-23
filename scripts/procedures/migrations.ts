@@ -1,6 +1,6 @@
 import { compat, matches, types as T } from "../deps.ts";
 
-function migrate_021_to_0221(config) {
+function migrate_022_to_0221(config: any) {
   if (config.datum.pooled_mining_only) {
     config.datum.reward_sharing = 'require';
   } else if (config.datum.pool_host) {
@@ -12,7 +12,7 @@ function migrate_021_to_0221(config) {
   return config;
 }
 
-function migrate_0221_to_021(config) {
+function migrate_0221_to_022(config: any) {
   if (config.datum.reward_sharing == 'require') {
     config.datum.pooled_mining_only = true;
   } else {
@@ -34,28 +34,32 @@ export const migration: T.ExpectedExports.migration =
     {
       "0.2.1": {
         up: compat.migrations.updateConfig(
-          migrate_021_to_0221,
+          (config) => {
+            return config;
+          },
           false,
           { version: "0.2.1", type: "up" }
         ),
         down: compat.migrations.updateConfig(
-          migrate_0221_to_021,
+          (config) => {
+            return config;
+          },
           false,
           { version: "0.2.1", type: "down" }
         ),
       },
-      "0.2.2": {
+      "0.2.2.1": {
         up: compat.migrations.updateConfig(
-          migrate_021_to_0221,
-          false,
-          { version: "0.2.1", type: "up" }
+          migrate_022_to_0221,
+          true,
+          { version: "0.2.2.1", type: "up"}
         ),
         down: compat.migrations.updateConfig(
-          migrate_0221_to_021,
-          false,
-          { version: "0.2.1", type: "down" }
-        ),
-      },
+          migrate_0221_to_022,
+          true,
+          { version: "0.2.2.1", type: "down"}
+        )
+      }
     },
     "0.2.2.1"
   );
