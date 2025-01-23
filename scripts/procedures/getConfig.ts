@@ -344,7 +344,7 @@ export const getConfig: T.ExpectedExports.getConfig = compat.getConfig({
         ],
         name: "Collaborative reward sharing (pooled mining)",
         description: "You can share rewards and share in others' rewards - or only get rewarded when you find a block yourself.",
-        value-names: {
+        "value-names": {
           require: "require (pooled mining only)",
           prefer: "prefer (failover to non-pooled)",
           never: "never (non-pooled only)",
